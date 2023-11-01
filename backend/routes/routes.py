@@ -20,7 +20,7 @@ async def getStudInfo(name: str):
     StudInfo = StdCollection.find_one({"name": name})
     if StudInfo:
         return StudInfoSerializer(StudInfo)
-    raise HTTPException(404, f"Student with id {stud_id} not found")
+    raise HTTPException(404, f"Student with name {name} not found")
 
 @router.get("/UniInfo")
 async def getUniInfo():
@@ -39,6 +39,10 @@ async def postStudInfo(StudInfo: StudentData):
             
 @router.post("/UniInfo")
 async def postUniInfo(UniInfo: UniversityData):
-        UniInfo_dict = UniInfo.model_dump()
-        UniInfo = UniCollection.insert_one(UniInfo_dict)
+        
+        try:
+           UniCollection.insert_one(dict(UniInfo))
+        except Exception as e:
+              print(e)
+        
        

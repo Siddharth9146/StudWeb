@@ -132,13 +132,33 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-app">
             <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
               <div class="portfolio-info">
-                <h4>App 1</h4>
-                <p>App</p>
+                <h4>College 1</h4>
+<!-- FILEPATH: /Users/development/Documents/GitHub/StudWeb/Frontend/portfolio.html -->
+
+<!-- Add this script tag to the head section of your HTML file -->
+<script>
+  // Fetch data from the backend using the fetch API
+  fetch('/getUniInfo')
+    .then(response => response.json()) // Parse the response as JSON
+    .then(data => {
+      // Get the details of the first university
+      const uni = data[0];
+
+      // Create a new HTML element to display the university details
+      const uniDetails = document.createElement('div');
+      uniDetails.innerHTML = `
+        <h1>${uni.name}</h3>
+        <p>Location: ${uni.location}</p>
+        <p>Ranking: ${uni.ranking}</p>
+      `;
+
+      // Add the university details to the webpage
+      document.body.appendChild(uniDetails);
+    })
+    .catch(error => console.error(error)); // Handle any errors that occur
+</script>
                 <div class="portfolio-links">
-                  <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
               </div>
             </div>

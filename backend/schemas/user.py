@@ -11,13 +11,14 @@ def StudsInfoSerializer(StudsInfo) -> list:
 
 def UniInfoSerializer(UniInfo) -> dict:
     return {
-        "id": UniInfo.uni_id,
-        "name": UniInfo.name,
-        "location": UniInfo.location,
-        "qs_ranking": UniInfo.qs_ranking,
-        "nirf_ranking": UniInfo.nirf_ranking,
-        "preferred_degree": UniInfo.degrees_best
+        "id": str(UniInfo['_id']),
+        "name": UniInfo['name'],
+        "location": UniInfo['location'],
+        "qs_ranking": UniInfo['qs_ranking'],
+        "nirf_ranking": UniInfo['nirf_ranking'],
+        "preferred_degree": UniInfo['degrees_best']
     }
+
 def UnisInfoSerializer(UnisInfo) -> list:
     return [UniInfoSerializer(UniInfo) for UniInfo in UnisInfo]
 
