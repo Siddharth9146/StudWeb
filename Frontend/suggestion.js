@@ -1,7 +1,14 @@
+
+
+
+
+
 async function getUniInfo() {
     try {
         // Make a GET request to the getUniInfo endpoint in your routes.py file
-        const response =  await fetch("http://127.0.0.1:8000/UniInfo");
+        var name = document.getElementById("name").value;
+        var link = "http://localhost:8000/UniSuggestion/" + name;
+        const response =  await fetch(link);
         const universitiesData =  await response.json();
 
         // Create a table element to hold the university data
