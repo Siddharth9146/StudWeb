@@ -3,7 +3,7 @@ from config.db import StdCollection, UniCollection
 from models.StudModel import StudentData
 from models.UniModel import UniversityData
 from bson import ObjectId
-
+from algo.algorithm2 import suggest_universities
 
 
 from schemas.user import StudInfoSerializer, StudsInfoSerializer, UniInfoSerializer, UnisInfoSerializer
@@ -44,5 +44,17 @@ async def postUniInfo(UniInfo: UniversityData):
            UniCollection.insert_one(dict(UniInfo))
         except Exception as e:
               print(e)
+
+@router.get("/UniSuggestion/{name}")
+async def getUniSuggestion(name: str):
+    StudInfo = StdCollection.find_one({"name": name})
+    if StudInfo:
+        StudInfo = StudInfoSerializer(StudInfo)
+        UnisInfo = UniCollection.find()
+        UnisInfo = UnisInfoSerializer(UnisInfo)
+        suggestions = suggest_universities(UnisInfo, StudInfo)
+        return suggestions
+    raise HTTPException(404, f"Student with name {name} not found")
+    
         
        
