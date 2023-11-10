@@ -36,7 +36,13 @@ def suggest_universities(universities:list, student:dict) -> list:
     
     # Sort the ranked universities based on their scores in descending order
     ranked_universities.sort(key=lambda x: x[1], reverse=True)
-    
+    print(ranked_universities)
+
+    # remove the score from the list
+
+    for i in range(len(ranked_universities)):
+        ranked_universities[i] = ranked_universities[i][0]
+        
     # Return the list of ranked universities
     return ranked_universities
 

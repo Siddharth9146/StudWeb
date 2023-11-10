@@ -1,8 +1,4 @@
 
-
-
-
-
 async function getUniInfo() {
     try {
         // Make a GET request to the getUniInfo endpoint in your routes.py file
@@ -44,10 +40,11 @@ async function getUniInfo() {
             nameCell.innerHTML = university.name;
             stateCell.innerHTML = university.state;
             NIRFrankCell.innerHTML = university.nirf_ranking;
-            degrees_bestCell.innerHTML = university.degrees_offered;
+            degrees_bestCell.innerHTML = university.degrees_best;
             campus_sizeCell.innerHTML = university.campus_size;
             facilities_scoreCell.innerHTML = university.facilities_score;
             required_12thCell.innerHTML = university.required_12th_score;
+
         });
 
         // Get the div element from your HTML file to hold the table
