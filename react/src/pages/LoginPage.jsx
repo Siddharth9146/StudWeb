@@ -26,6 +26,8 @@ const LoginPage = ({ setIsAuthenticated }) => {
         navigate('/profile');
     };
 
+
+
     return (
         <div className="auth-container">
             <div className="auth-box">
