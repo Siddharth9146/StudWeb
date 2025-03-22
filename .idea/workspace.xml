@@ -7,6 +7,12 @@
     <list default="true" id="22765c26-81b9-4b35-9bf9-622c99a9bee7" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/react/src/pages/CollegeList.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
+=======
+      <change beforePath="$PROJECT_DIR$/react/src/components/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/Header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/pages/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/pages/LandingPage.jsx" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +89,7 @@
       <workItem from="1742632800464" duration="101000" />
       <workItem from="1742632976542" duration="1007000" />
       <workItem from="1742661953736" duration="1378000" />
-      <workItem from="1742663366165" duration="566000" />
+      <workItem from="1742663366165" duration="1523000" />
     </task>
     <servers />
   </component>

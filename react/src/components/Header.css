@@ -1,49 +1,72 @@
 .header {
+    background-color: white;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #3498db;
+    color: #FFA500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: #FF8C00;
 }
 
 nav ul {
     display: flex;
-    list-style-type: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
 }
 
-nav ul li {
-    margin-left: 1.5rem;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-    color: #3498db;
-}
-
-.cta-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    font-weight: bold;
+nav li {
+    color: #2c3e50;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.5rem 0;
 }
 
-.cta-button:hover {
-    background-color: #2980b9;
+nav li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #FFA500;
+    transition: width 0.3s ease;
+}
+
+nav li:hover {
+    color: #FFA500;
+}
+
+nav li:hover::after {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+    }
+
+    nav ul {
+        gap: 1rem;
+    }
+
+    nav li {
+        font-size: 0.9rem;
+    }
 }
