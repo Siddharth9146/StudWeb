@@ -3,6 +3,10 @@
 
 College Suggester
 
+## Web Architecture
+
+![alt text](image.png)
+
 ## Installation
 
 Clone from GitHub:
