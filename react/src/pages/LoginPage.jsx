@@ -22,21 +22,21 @@ const LoginPage = ({ setIsAuthenticated }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/StudLogin", {
+            const response = await fetch(`http://127.0.0.1:8000/StudLogin?email=${encodeURIComponent(formData.email)}&password=${encodeURIComponent(formData.password)}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
+                }
             });
 
             const data = await response.json();
 
             if (data.success) {
                 setIsAuthenticated(true);
+                localStorage.setItem("studentId", data.id); // Store student ID if needed
                 navigate('/profile');
             } else {
-                setError(data.message || "Login failed. Please try again.");
+                setError(data.message || "Invalid username or password.");
             }
         } catch (error) {
             setError("An error occurred. Please try again later.");
