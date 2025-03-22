@@ -10,16 +10,27 @@
     z-index: 1000;
 }
 
-.logo {
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+    transform: scale(1.05);
+}
+
+.logo-icon {
+    animation: spin 20s linear infinite;
+}
+
+.logo-text {
     font-size: 1.5rem;
     font-weight: bold;
     color: #FFA500;
-    cursor: pointer;
     transition: color 0.3s ease;
-}
-
-.logo:hover {
-    color: #FF8C00;
 }
 
 nav ul {
@@ -57,6 +68,46 @@ nav li:hover::after {
     width: 100%;
 }
 
+nav ul li {
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav ul li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #FFA500;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav ul li:hover::after {
+    width: 70%;
+}
+
+nav ul li.active {
+    color: #FFA500;
+}
+
+nav ul li.active::after {
+    width: 70%;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 @media (max-width: 768px) {
     .header {
         padding: 1rem;
@@ -68,5 +119,14 @@ nav li:hover::after {
 
     nav li {
         font-size: 0.9rem;
+    }
+
+    .logo-text {
+        font-size: 1.3rem;
+    }
+
+    .logo-icon {
+        width: 20px;
+        height: 20px;
     }
 }

@@ -1,6 +1,8 @@
+/* General Landing Page Styling */
 .landing-page {
     min-height: calc(100vh - 80px);
     background: linear-gradient(135deg, #fff5e6 0%, #fff 100%);
+    padding: 2rem;
 }
 
 /* Hero Section */

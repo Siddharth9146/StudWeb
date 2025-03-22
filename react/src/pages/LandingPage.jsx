@@ -10,13 +10,16 @@ const LandingPage = () => {
             <section className="hero">
                 <div className="hero-content">
                     <h1>Find Your Perfect College Match</h1>
-                    <p className="hero-subtitle">Smart college matches for students - Targeted recruitment for institutions</p>
+                    <p className="hero-subtitle">
+                        Discover the best colleges that match your aspirations. Get personalized recommendations, 
+                        compare programs, and make informed decisions about your educational future.
+                    </p>
                     <div className="cta-buttons">
                         <button className="primary-cta" onClick={() => navigate('/login')}>
                             I'm a Student
                         </button>
-                        <button className="secondary-cta">
-                            College Representative? Add Listing
+                        <button className="secondary-cta" onClick={() => navigate('/signup')}>
+                            College Representative
                         </button>
                     </div>
                 </div>

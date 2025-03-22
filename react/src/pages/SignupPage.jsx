@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AuthPages.css';
 
-const SignupPage = () => {
+const SignupPage = ({ setIsAuthenticated }) => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         confirmPassword: ''
     });
-    const navigate = useNavigate();
+    const [error, setError] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,15 +22,22 @@ const SignupPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // For now, accept any input and navigate to college list
-        navigate('/college-list');
+        
+        if (formData.password !== formData.confirmPassword) {
+            setError('Passwords do not match');
+            return;
+        }
+
+        // Here you would typically make an API call to create the account
+        // For now, we'll just simulate a successful signup
+        setIsAuthenticated(true);
+        navigate('/profile');
     };
 
     return (
         <div className="auth-container">
             <div className="auth-box">
-                <h2>Create Your Account</h2>
-                <p className="subtitle">Join EduWise to find your perfect college match.</p>
+                <h2>Create Account</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <input
@@ -71,17 +79,12 @@ const SignupPage = () => {
                             required
                         />
                     </div>
+                    {error && <div className="error-message">{error}</div>}
                     <button type="submit" className="auth-button">Sign Up</button>
                 </form>
-                <div className="auth-footer">
-                    <p>Already have an account?</p>
-                    <button 
-                        className="auth-link-button"
-                        onClick={() => navigate('/login')}
-                    >
-                        Login
-                    </button>
-                </div>
+                <p className="auth-link">
+                    Already have an account? <span onClick={() => navigate('/login')}>Login</span>
+                </p>
             </div>
         </div>
     );
