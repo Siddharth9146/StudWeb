@@ -19,4 +19,5 @@ Instructions for backend given in backend/README.md
 
 - fastapi
 - pymongo
+- npm
 
