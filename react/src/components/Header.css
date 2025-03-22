@@ -1,49 +1,132 @@
 .header {
+    background-color: white;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.logo {
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+    transform: scale(1.05);
+}
+
+.logo-icon {
+    animation: spin 20s linear infinite;
+}
+
+.logo-text {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #3498db;
+    color: #FFA500;
+    transition: color 0.3s ease;
 }
 
 nav ul {
     display: flex;
-    list-style-type: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+}
+
+nav li {
+    color: #2c3e50;
+    cursor: pointer;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+nav li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #FFA500;
+    transition: width 0.3s ease;
+}
+
+nav li:hover {
+    color: #FFA500;
+}
+
+nav li:hover::after {
+    width: 100%;
 }
 
 nav ul li {
-    margin-left: 1.5rem;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-    color: #3498db;
-}
-
-.cta-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.cta-button:hover {
-    background-color: #2980b9;
+nav ul li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #FFA500;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav ul li:hover::after {
+    width: 70%;
+}
+
+nav ul li.active {
+    color: #FFA500;
+}
+
+nav ul li.active::after {
+    width: 70%;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+    }
+
+    nav ul {
+        gap: 1rem;
+    }
+
+    nav li {
+        font-size: 0.9rem;
+    }
+
+    .logo-text {
+        font-size: 1.3rem;
+    }
+
+    .logo-icon {
+        width: 20px;
+        height: 20px;
+    }
 }
