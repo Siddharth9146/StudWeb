@@ -114,11 +114,40 @@ const Profile = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            // Handle form submission
-            console.log('Form submitted:', formData);
+        if (!validateForm()) return;
+
+        const studentData = {
+            name: formData.name,
+            phone: formData.phone,
+            email: "test@example.com", // Replace with actual user email
+            tenth_grade: parseInt(formData.tenthGrade),
+            twelfth_grade: parseInt(formData.twelfthGrade),
+            exam_score: parseInt(formData.examScore),
+            exam_name: formData.examType,
+            state: "YourState", // Replace with actual state input if available
+            preferred_degree: formData.preferredCourses.join(", "),
+            password: "defaultPassword" // Replace with actual password input if required
+        };
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/StudInfoPost", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(studentData)
+            });
+
+            if (response.ok) {
+                alert("Profile saved successfully!");
+            } else {
+                alert("Failed to save profile.");
+            }
+        } catch (error) {
+            console.error("Error saving profile:", error);
+            alert("An error occurred. Please try again.");
         }
     };
 
@@ -251,4 +280,4 @@ const Profile = () => {
     );
 };
 
-export default Profile; 
+export default Profile;
