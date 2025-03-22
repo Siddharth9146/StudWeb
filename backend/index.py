@@ -1,9 +1,15 @@
 from fastapi import FastAPI
 from routes.routes import router
+from routes.university_routes import router as university_router
+from routes.degree_routes import router as degree_router
+from routes.exam_routes import router as exam_router
 
 app = FastAPI()
 
 app.include_router(router)
+app.include_router(university_router, prefix="/universities", tags=["Universities"])
+app.include_router(degree_router, prefix="/degrees", tags=["Degrees"])
+app.include_router(exam_router, prefix="/exams", tags=["Exams"])
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
