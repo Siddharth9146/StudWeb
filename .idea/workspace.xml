@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22765c26-81b9-4b35-9bf9-622c99a9bee7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/react/src/pages/CollegeList.jsx" afterDir="false" />
+    <list default="true" id="22765c26-81b9-4b35-9bf9-622c99a9bee7" name="Changes" comment="college list added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
 <<<<<<< Updated upstream
 =======
@@ -91,9 +90,22 @@
       <workItem from="1742661953736" duration="1378000" />
       <workItem from="1742663366165" duration="1523000" />
     </task>
+    <task id="LOCAL-00001" summary="college list added">
+      <option name="closed" value="true" />
+      <created>1742666303401</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742666303401</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="college list added" />
+    <option name="LAST_COMMIT_MESSAGE" value="college list added" />
   </component>
 </project>

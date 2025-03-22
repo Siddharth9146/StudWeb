@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './DashboardPage.css';
 
 const DashboardPage = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(true); // Mock login state
+
     return (
         <div className="dashboard-container">
             <h1>Welcome to Your Dashboard</h1>
+
+            {isLoggedIn && (
+                <div className="dashboard-nav">
+                    <button>Profile</button>
+                    <button>Search College</button>
+                    <button>Learning Path</button>
+                </div>
+            )}
+
             <div className="dashboard-content">
                 <div className="dashboard-card">
                     <h2>Your Profile</h2>
@@ -23,4 +34,4 @@ const DashboardPage = () => {
     );
 };
 
-export default DashboardPage; 
+export default DashboardPage;
