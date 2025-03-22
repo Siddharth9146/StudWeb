@@ -1,5 +1,5 @@
 
-# Project Name
+# StudWeb FullStack Project
 
 College Suggester
 
