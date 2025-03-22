@@ -18,15 +18,30 @@ const LoginPage = ({ setIsAuthenticated }) => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here you would typically make an API call to verify credentials
-        // For now, we'll just simulate a successful login
-        setIsAuthenticated(true);
-        navigate('/profile');
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/StudLogin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setIsAuthenticated(true);
+                navigate('/profile');
+            } else {
+                setError(data.message || "Login failed. Please try again.");
+            }
+        } catch (error) {
+            setError("An error occurred. Please try again later.");
+        }
     };
-
-
 
     return (
         <div className="auth-container">
