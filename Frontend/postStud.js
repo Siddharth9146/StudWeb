@@ -8,5 +8,4 @@ async function postStud() {
         var link = "http://localhost:8000/postStud/" + name + "/" + email + "/" + phone;
         const response =  await fetch(link);
         const universitiesData =  await response.json();
-
- 
+    }

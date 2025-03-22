@@ -8,6 +8,7 @@ app.include_router(router)
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from config.db import conn
+
 try:
     conn.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")
