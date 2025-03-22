@@ -1,0 +1,111 @@
+.landing-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.hero {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #34495e;
+    margin-bottom: 2rem;
+}
+
+.cta-segment {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.cta-segment button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.student-cta {
+    background-color: #3498db;
+    color: white;
+}
+
+.student-cta:hover {
+    background-color: #2980b9;
+}
+
+.college-cta {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.college-cta:hover {
+    background-color: #27ae60;
+}
+
+.features {
+    margin-top: 4rem;
+}
+
+.features h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-item {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+}
+
+.feature-item h3 {
+    color: #3498db;
+    margin-bottom: 1rem;
+}
+
+.feature-item p {
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .cta-segment {
+        flex-direction: column;
+    }
+
+    .cta-segment button {
+        width: 100%;
+    }
+}
