@@ -11,6 +11,7 @@ const SignupPage = ({ setIsAuthenticated }) => {
         confirmPassword: ''
     });
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,7 +21,7 @@ const SignupPage = ({ setIsAuthenticated }) => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
         if (formData.password !== formData.confirmPassword) {
@@ -28,16 +29,47 @@ const SignupPage = ({ setIsAuthenticated }) => {
             return;
         }
 
-        // Here you would typically make an API call to create the account
-        // For now, we'll just simulate a successful signup
-        setIsAuthenticated(true);
-        navigate('/profile');
+        setIsLoading(true);
+        setError('');
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/StudSignup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    password: formData.password
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setIsAuthenticated(true);
+                localStorage.setItem('studentId', data.id);
+                // Show success message before redirecting
+                setError('');
+                // Redirect to profile completion page
+                navigate('/profile');
+            } else {
+                setError(data.detail || data.message || 'Failed to create account');
+            }
+        } catch (error) {
+            setError('An error occurred. Please try again later.');
+            console.error('Signup error:', error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
         <div className="auth-container">
             <div className="auth-box">
                 <h2>Create Account</h2>
+                <p className="subtitle">Join EduWise to find your perfect college match</p>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <input
@@ -67,6 +99,7 @@ const SignupPage = ({ setIsAuthenticated }) => {
                             value={formData.password}
                             onChange={handleChange}
                             required
+                            minLength={6}
                         />
                     </div>
                     <div className="form-group">
@@ -77,10 +110,17 @@ const SignupPage = ({ setIsAuthenticated }) => {
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             required
+                            minLength={6}
                         />
                     </div>
                     {error && <div className="error-message">{error}</div>}
-                    <button type="submit" className="auth-button">Sign Up</button>
+                    <button 
+                        type="submit" 
+                        className="auth-button"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? 'Creating Account...' : 'Sign Up'}
+                    </button>
                 </form>
                 <p className="auth-link">
                     Already have an account? <span onClick={() => navigate('/login')}>Login</span>
