@@ -41,16 +41,13 @@ const Profile = () => {
 
         const fetchStudentData = async () => {
             const studentId = localStorage.getItem('studentId');
-            if (!studentId) {
-                setHasProfile(false);
-                return;
-            }
+            if (!studentId) return;
 
             try {
                 const response = await fetch(`http://127.0.0.1:8000/StudInfo/${studentId}`);
                 if (response.ok) {
                     const data = await response.json();
-                    setFormData({
+                    const profileData = {
                         name: data.name || '',
                         phone: data.phone || '',
                         tenthGrade: data.tenth_grade || '',
@@ -60,15 +57,12 @@ const Profile = () => {
                         preferredCourses: data.preferred_degree ? data.preferred_degree.split(', ') : [],
                         wantedFacilities: data.wanted_facilities || [],
                         state: data.state || ''
-                    });
+                    };
+                    setFormData(profileData);
                     setHasProfile(true);
-                    setIsEditing(false);
-                } else {
-                    setHasProfile(false);
                 }
             } catch (error) {
                 console.error("Error fetching student data:", error);
-                setHasProfile(false);
             }
         };
 
@@ -206,10 +200,6 @@ const Profile = () => {
             if (response.ok) {
                 setHasProfile(true);
                 setIsEditing(false);
-                if (!hasProfile) {
-                    // Redirect to dashboard after first-time profile completion
-                    navigate('/dashboard');
-                }
             } else {
                 const errorData = await response.json();
                 alert(errorData.detail || "Failed to save profile. Please try again.");
