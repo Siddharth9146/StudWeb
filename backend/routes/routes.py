@@ -175,29 +175,29 @@ try:
     import os
     import json
     
-    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-    if GEMINI_API_KEY:
-        genai.configure(api_key=GEMINI_API_KEY)
+    GEMINI_API_KEY="AIzaSyAR_tkg_U2qtUhsPaYUN0AqnSGRVcPojxY"
 
-        @router.post("/generate-roadmap")
-        async def generate_roadmap(student_data: StudentRoadmapData):
+    genai.configure(api_key=GEMINI_API_KEY)
+
+    @router.post("/generate-roadmap")
+    async def generate_roadmap(student_data: StudentRoadmapData):
+        try:
+            student_json = json.dumps(student_data.student_data)
+            model = genai.GenerativeModel('gemini-2.0-flash')
+            prompt = f"Using this data what should be the roadmap for the student. Give data in JSON format. Here's the student data: {student_json}"
+            response = model.generate_content(prompt)
+            
             try:
-                student_json = json.dumps(student_data.student_data)
-                model = genai.GenerativeModel('gemini-pro')
-                prompt = f"Using this data what should be the roadmap for the student. Give data in JSON format. Here's the student data: {student_json}"
-                response = model.generate_content(prompt)
+                roadmap_data = json.loads(response.text)
+                return roadmap_data
+            except json.JSONDecodeError:
+                return {"raw_response": response.text}
                 
-                try:
-                    roadmap_data = json.loads(response.text)
-                    return roadmap_data
-                except json.JSONDecodeError:
-                    return {"raw_response": response.text}
-                    
-            except Exception as e:
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Failed to generate roadmap: {str(e)}"
-                )
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Failed to generate roadmap: {str(e)}"
+            )
 except ImportError:
     # If google.generativeai is not available, provide a dummy endpoint
     @router.post("/generate-roadmap")
