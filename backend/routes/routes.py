@@ -3,6 +3,7 @@ from config.db import StdCollection, UniCollection, degree_collection
 from models.StudModel import StudentData
 from models.UniModel import UniversityData
 from models.SignupModel import SignupData
+from models.UniSignupModel import UniSignupData
 from bson import ObjectId
 from algo.algorithm2 import suggest_universities
 from typing import List, Dict, Any
@@ -42,13 +43,13 @@ async def getStudId(email: str, password: str):
     return {"success": False, "message": "Invalid username or password"}
 
 @router.get("/UniLogin")
-async def getUniId(email: str, password: str):
+async def getUniId(name: str, password: str):
     global uni_id  # Declare as global to modify the global variable
-    UniInfo = UniCollection.find_one({"email": email, "password": password})
+    UniInfo = UniCollection.find_one({"name": name, "password": password})
     if UniInfo:
         uni_id = str(UniInfo["_id"])  # Save university ID to the global variable
         return {"success": True, "id": uni_id}
-    return {"success": False, "message": "Invalid username or password"}
+    return {"success": False, "message": "Invalid college name or password"}
 
 @router.get("/UniInfo")
 async def getUniInfo():
@@ -127,6 +128,45 @@ async def signup_student(signup_data: SignupData):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to create account"
+        )
+
+@router.post("/UniSignup")
+async def signup_university(signup_data: UniSignupData):
+    try:
+        # Check if college name already exists
+        existing_uni = UniCollection.find_one({"name": signup_data.name})
+        if existing_uni:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="College name already registered"
+            )
+
+        # Create initial university document with minimal info
+        uni_data = {
+            "name": signup_data.name,
+            "password": signup_data.password,
+            "state": "",
+            # Default values for required fields
+            "nirf_ranking": 0,
+            "degrees_best": "",
+            "campus_size": 0,
+            "facilities_score": 0,
+            "required_12th": 0
+        }
+
+        result = UniCollection.insert_one(uni_data)
+        return {
+            "success": True,
+            "id": str(result.inserted_id),
+            "message": "University account created successfully"
+        }
+    except Exception as e:
+        if isinstance(e, HTTPException):
+            raise e
+        print(e)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to create university account"
         )
 
 # Optional: Only import and use if GEMINI_API_KEY is set
