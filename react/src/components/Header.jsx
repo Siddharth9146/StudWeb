@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
 
-const Header = ({ isAuthenticated, setIsAuthenticated }) => {
+const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 

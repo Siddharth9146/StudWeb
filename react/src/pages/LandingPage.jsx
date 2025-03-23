@@ -15,10 +15,10 @@ const LandingPage = () => {
                         compare programs, and make informed decisions about your educational future.
                     </p>
                     <div className="cta-buttons">
-                        <button className="primary-cta" onClick={() => navigate('/login')}>
+                        <button className="primary-cta" onClick={() => navigate('/student-login')}>
                             I'm a Student
                         </button>
-                        <button className="secondary-cta" onClick={() => navigate('/signup')}>
+                        <button className="secondary-cta" onClick={() => navigate('/college-login')}>
                             College Representative
                         </button>
                     </div>

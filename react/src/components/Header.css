@@ -1,13 +1,16 @@
 .header {
-    background-color: white;
+    background-color: var(--primary-dark);
     padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
+    border-bottom: 1px solid var(--dark-border);
 }
 
 .logo-container {
@@ -29,7 +32,7 @@
 .logo-text {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #FFA500;
+    color: var(--accent-orange);
     transition: color 0.3s ease;
 }
 
@@ -42,7 +45,7 @@ nav ul {
 }
 
 nav li {
-    color: #2c3e50;
+    color: var(--primary-light);
     cursor: pointer;
     font-size: 1rem;
     position: relative;
@@ -56,12 +59,12 @@ nav li::after {
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #FFA500;
+    background-color: var(--accent-orange);
     transition: width 0.3s ease;
 }
 
 nav li:hover {
-    color: #FFA500;
+    color: var(--accent-orange);
 }
 
 nav li:hover::after {
@@ -99,6 +102,33 @@ nav ul li.active::after {
     width: 70%;
 }
 
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.auth-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.auth-button {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--accent-orange);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--accent-orange);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+    background: var(--accent-orange);
+    color: var(--primary-light);
+}
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
@@ -128,5 +158,14 @@ nav ul li.active::after {
     .logo-icon {
         width: 20px;
         height: 20px;
+    }
+
+    .auth-group {
+        gap: 0.5rem;
+    }
+
+    .auth-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
     }
 }
