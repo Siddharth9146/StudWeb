@@ -1,13 +1,25 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Body
 from config.db import StdCollection, UniCollection, degree_collection
 from models.StudModel import StudentData
 from models.UniModel import UniversityData
 from bson import ObjectId
 from algo.algorithm2 import suggest_universities
-from typing import List
+from typing import List, Dict, Any
 from models.Degree import Degree
+import google.generativeai as genai
+import os
+import json
+from pydantic import BaseModel
 
 from schemas.user import StudInfoSerializer, StudsInfoSerializer, UniInfoSerializer, UnisInfoSerializer
+
+class StudentRoadmapData(BaseModel):
+    student_data: Dict[str, Any]
+
+# Initialize Gemini API with your API key
+# You'll need to set this environment variable or configure it properly
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+genai.configure(api_key=GEMINI_API_KEY)
 
 router = APIRouter()
 
@@ -97,6 +109,36 @@ async def getUniSuggestion(name: str):
         suggestions = suggest_universities(UnisInfo, StudInfo)
         return suggestions
     raise HTTPException(404, f"Student with name {name} not found")
-    
+
+
+@router.post("/generate-roadmap")
+async def generate_roadmap(student_data: StudentRoadmapData):
+    try:
+        # Convert the student data to JSON string
+        student_json = json.dumps(student_data.student_data)
         
+        # Create Gemini model
+        model = genai.GenerativeModel('gemini-pro')
+        
+        # Send prompt to Gemini API
+        prompt = f"Using this data what should be the roadmap for the student. Give data in JSON format. Here's the student data: {student_json}"
+        
+        # Generate response
+        response = model.generate_content(prompt)
+        
+        # Extract the JSON from the response
+        # This assumes Gemini returns a valid JSON string
+        try:
+            # Try to parse the response text as JSON
+            roadmap_data = json.loads(response.text)
+            return roadmap_data
+        except json.JSONDecodeError:
+            # If it's not valid JSON, return the raw text
+            return {"raw_response": response.text}
+            
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to generate roadmap: {str(e)}"
+        )
        

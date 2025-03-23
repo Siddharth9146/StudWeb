@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Profile.css';
 
 const Profile = () => {
@@ -14,20 +14,15 @@ const Profile = () => {
     });
 
     const [errors, setErrors] = useState({});
-    const [examTypes, setExamTypes] = useState([]);
 
-    useEffect(() => {
-        const fetchExamNames = async () => {
-            try {
-                const response = await fetch("http://127.0.0.1:8000/names");
-                const data = await response.json();
-                setExamTypes(data);
-            } catch (error) {
-                console.error("Error fetching exam names:", error);
-            }
-        };
-        fetchExamNames();
-    }, []);
+    const examTypes = [
+        'JEE Main',
+        'JEE Advanced',
+        'NEET',
+        'GATE',
+        'CAT',
+        'Other'
+    ];
 
     const courseOptions = [
         'Computer Science',

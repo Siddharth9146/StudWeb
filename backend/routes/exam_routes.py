@@ -22,6 +22,13 @@ async def list_exams():
     exams = list(exam_collection.find())
     return exams
 
+@router.get("/names", response_model=List[str])
+async def get_exam_names():
+    exams = exam_collection.find({}, {"_id": 0, "name": 1})
+    exam_names = [exam["name"] for exam in exams if "name" in exam]
+    return exam_names
+
+
 @router.get("/{id}", response_model=Exam)
 async def get_exam(id: str):
     exam = exam_collection.find_one({"_id": id})
