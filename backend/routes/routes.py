@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, status, Body
 from config.db import StdCollection, UniCollection, degree_collection
 from models.StudModel import StudentData
 from models.UniModel import UniversityData
+from models.SignupModel import SignupData
 from bson import ObjectId
 from algo.algorithm2 import suggest_universities
 from typing import List, Dict, Any
@@ -88,6 +89,45 @@ async def getUniSuggestion(name: str):
         suggestions = suggest_universities(UnisInfo, StudInfo)
         return suggestions
     raise HTTPException(404, f"Student with name {name} not found")
+
+@router.post("/StudSignup")
+async def signup_student(signup_data: SignupData):
+    try:
+        # Check if email already exists
+        existing_user = StdCollection.find_one({"email": signup_data.email})
+        if existing_user:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Email already registered"
+            )
+
+        # Create initial student document with minimal info
+        student_data = {
+            "name": signup_data.name,
+            "email": signup_data.email,
+            "password": signup_data.password,
+            # Default values for required fields
+            "phone": "",
+            "tenth_grade": 0,
+            "twelfth_grade": 0,
+            "state": "",
+            "preferred_degree": ""
+        }
+
+        result = StdCollection.insert_one(student_data)
+        return {
+            "success": True,
+            "id": str(result.inserted_id),
+            "message": "Account created successfully"
+        }
+    except Exception as e:
+        if isinstance(e, HTTPException):
+            raise e
+        print(e)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to create account"
+        )
 
 # Optional: Only import and use if GEMINI_API_KEY is set
 try:
