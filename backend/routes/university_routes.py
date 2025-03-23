@@ -65,3 +65,4 @@ async def delete_university(id: str):
         university_collection.delete_one({"_id": id})
         return deleted_university
     raise HTTPException(status_code=404, detail=f"University with ID {id} not found")
+

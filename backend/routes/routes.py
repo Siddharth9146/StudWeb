@@ -110,8 +110,11 @@ async def signup_student(signup_data: SignupData):
             "phone": "",
             "tenth_grade": 0,
             "twelfth_grade": 0,
+            "exam_score": 0,
+            "exam_name": "",
             "state": "",
-            "preferred_degree": ""
+            "preferred_degrees": [],  # Empty list for preferred degrees
+            "preferred_facilities": []  # Empty list for facilities preferences
         }
 
         result = StdCollection.insert_one(student_data)
