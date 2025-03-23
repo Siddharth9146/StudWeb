@@ -10,11 +10,6 @@ const Header = ({ isAuthenticated, setIsAuthenticated }) => {
         return location.pathname === path;
     };
 
-    const handleLogout = () => {
-        setIsAuthenticated(false);
-        navigate('/');
-    };
-
     return (
         <header className="header">
             <div className="logo-container" onClick={() => navigate('/')}>
@@ -48,22 +43,6 @@ const Header = ({ isAuthenticated, setIsAuthenticated }) => {
                     >
                         Contact
                     </li>
-                    {!isAuthenticated && (
-                        <>
-                            <li 
-                                className={isActive('/login') ? 'active' : ''} 
-                                onClick={() => navigate('/login')}
-                            >
-                                Login
-                            </li>
-                            <li 
-                                className={isActive('/signup') ? 'active' : ''} 
-                                onClick={() => navigate('/signup')}
-                            >
-                                Sign Up
-                            </li>
-                        </>
-                    )}
                 </ul>
             </nav>
         </header>
